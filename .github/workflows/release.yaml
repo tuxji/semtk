@@ -1,5 +1,4 @@
 # Builds SemTK distribution tarball when a release is published:
-#  - Caches Maven repository needed to build SemTK
 #  - Builds SemTK sources
 #  - Uploads SemTK distribution tarball to GitHub release page
 

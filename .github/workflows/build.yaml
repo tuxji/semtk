@@ -1,5 +1,4 @@
-# Builds SemTK upon every push:
-#  - Caches Maven repository needed to build SemTK
+# Builds SemTK upon every push (but ignoring tag-only pushes):
 #  - Builds SemTK sources
 #  - Runs code analysis scan (TBD)
 
@@ -7,8 +6,8 @@ name: SemTK continuous build
 
 on:
   push:
-    branches: [ * ]
-    tags-ignore: [ * ]
+    branches: [ '*' ]
+    tags-ignore: [ '*' ]
 
 jobs:
   build:
