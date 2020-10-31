@@ -15,6 +15,11 @@ jobs:
     - name: Check out SemTK source
       uses: actions/checkout@v2
 
+    - name: Set up Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+
     - name: Cache Maven repository
       uses: actions/cache@v2
       with:
