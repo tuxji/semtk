@@ -17,16 +17,21 @@ jobs:
     - name: Check out SemTK source
       uses: actions/checkout@v2
 
+    - name: Set up Java
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+
     - name: Cache Maven repository
       uses: actions/cache@v2
       with:
         path: ~/.m2
         key: maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: maven
 
-    - name: Build SemTK
-      run: |
-        # TODO: The tests currently fail in Github Actions.
-        mvn --batch-mode clean install -DskipTests
+# TODO: The tests currently fail in Github Actions.
+    - name: Run Maven build
+      run: mvn -B install -DskipTests
 
     - name: Upload SemTK distribution tarball
       uses: actions/upload-release-asset@v1
@@ -34,6 +39,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: semtk-opensource/distribution/target/semtk-opensource-dist.tar.gz
-        asset_name: semtk-opensource-${{ steps.get_version.outputs.version }}-dist.tar.gz
+        asset_path: distribution/target/semtk-opensource-dist.tar.gz
+        asset_name: semtk-opensource-${{ github.event.release.tag_name }}-dist.tar.gz
         asset_content_type: application/gzip
