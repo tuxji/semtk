@@ -17,14 +17,8 @@ jobs:
     - name: Check out SemTK source
       uses: actions/checkout@v2
 
-    - name: Cache Maven repository
-      uses: actions/cache@v2
-      with:
-        path: ~/.m2
-        key: m2-${{ hashFiles('**/pom.xml') }}
-
     - name: Build SemTK jars
       # TODO: The tests currently fail in Github Actions
       run: |
         mvn -version
-        mvn install -DskipTests
+        mvn -B install -DskipTests
