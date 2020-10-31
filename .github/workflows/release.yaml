@@ -17,14 +17,6 @@ jobs:
     - name: Check out SemTK source
       uses: actions/checkout@v2
 
-    - name: Cache Maven repository
-      uses: actions/cache@v2
-      with:
-        path: ~/.m2
-        key: maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: maven
-
-# TODO: The tests currently fail in Github Actions.
     - name: Run Maven build
       run: |
         mvn -version

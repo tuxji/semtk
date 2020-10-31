@@ -5,7 +5,9 @@
 
 name: SemTK continuous build
 
-on: [ push ]
+on:
+  push:
+    branches:
 
 jobs:
   build:
@@ -15,22 +17,8 @@ jobs:
     - name: Check out SemTK source
       uses: actions/checkout@v2
 
-    - name: Set up Java
-      uses: actions/setup-java@v1
-      with:
-        java-version: 11
-
-    - name: Cache Maven repository
-      uses: actions/cache@v2
-      with:
-        path: ~/.m2
-        key: maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: maven
-
-# TODO: The tests currently fail in Github Actions.
     - name: Run Maven build
+      # TODO: The tests currently fail in Github Actions.
       run: |
         mvn -version
         mvn -B install -DskipTests
-        ls -l distribution/target/semtk-opensource-dist.tar.gz
-        pwd
